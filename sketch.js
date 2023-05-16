@@ -4,7 +4,14 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 
-var btn2;
+var engine; 
+var world;
+var ground1; 
+var ball; 
+var ground2; 
+var angle = 60;
+
+var btn;
 
 var angle=60;
 
@@ -24,35 +31,34 @@ function setup() {
      isStatic: true
    };
   
-   btn2 = createImg('up.png');
-  btn2.position(350,30);
-  btn2.size(50,50);
-  btn2.mouseClicked(vForce);
+  btn = createImg('up.png');
+  btn.position(350,30);
+  btn.size(50,50);
+  btn.mouseClicked(vForce);
 
-  ground1 = Bodies.rectangle(100,300,100,20,ground_options);
-  World.add(world,ground1);
+  ground2 = Bodies.rectangle(100,300,100,20,ground_options);
+  World.add(world,ground2);
 
   ball = Bodies.circle(100,10,20,ball_options);
   World.add(world,ball);
   
  
-  ground = Bodies.rectangle(100,400,650,20,ground_options);
-  World.add(world,ground); 
+  ground1 = Bodies.rectangle(100,400,650,20,ground_options);
+  World.add(world,ground1); 
   
   rectMode(CENTER);
   ellipseMode(RADIUS);
 }
 
 
-function draw() 
-{
+function draw(){
   background(51);
   Engine.update(engine);
   
   
-  Matter.Body.rotate(ground1,angle)
- push();
-  translate(ground1.position.x,ground1.position.y);
+  Matter.Body.rotate(ground2,angle)
+  push();
+  translate(ground2.position.x,ground2.position.y);
   rotate(angle);
   rect(0,0,100,20);
   pop();
@@ -62,16 +68,12 @@ function draw()
  
 
   ellipse(ball.position.x,ball.position.y,20);
-  rect(ground.position.x,ground.position.y,650,20);
+  rect(ground1.position.x,ground1.position.y,650,20); 
  
-//console.log(ground.position.y);
-
-  
   
 }
 
-function vForce()
-{
+function vForce(){
   Matter.Body.applyForce(ball,{x:0,y:0},{x:0,y:-0.05});
 }
   
